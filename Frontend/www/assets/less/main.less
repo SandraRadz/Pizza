@@ -1,3 +1,179 @@
-@mainColor: blue;
+@mainColor: #ec890e;
+@smallTextColor: #a3a0a0;
+@colorOfText: #333;
 
 @import "pizza/pizza-card";
+@import "left-column";
+@import "right-column";
+
+@RightPanelWidth: 330px;
+@TopHeight: 80px;
+@RightPanelBottomHeight: 100px;
+
+*{
+  font-family: Lato, "Helvetica Neue", Arial, Helvetica, sans-serif;
+  font-size: 14px;
+  background-color:  #fffff5;
+  box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+html{
+  height: auto;
+  width: auto;
+}
+
+body{
+  font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+  font-size: 14px;
+  line-height: 1.42857143;
+  color: @colorOfText;
+  background-color: #fff;
+}
+
+.main, body{
+  min-width: 594px;
+}
+
+.main-header-top-items{
+  background: black;
+  opacity: 0.8;
+}
+.top-panel {
+  background: rgba(0,0,0,.8);
+  z-index: 10;
+  padding-left: 130px;
+  padding-right: 350px;
+  border-radius: 0;
+  top: 0px;
+  border-width: 0px 0px 1px;
+  position: fixed;
+  right: 0px;
+  left: 0px;
+  min-height: 50px;
+  margin-bottom: 20px;
+  border-width: 1px;
+  border-style: solid;
+  border-color: transparent;
+  border-image: initial;
+  height: 85px;
+}
+
+ .site-icon{
+  position: fixed;
+  top: 0;
+  background: @mainColor;
+  z-index: 99;
+  width: 100px;
+  height: 90px;
+  font-size: 19px;
+  padding: 10px;
+  padding-top: 15px;
+  color: #fff;
+  text-align: center;
+  text-transform: uppercase;
+  left: 9px;
+  border-left: 1px solid @mainColor;
+  border-right: 1px solid @mainColor;
+}
+
+.bottom-icon{
+  position: fixed;
+  bottom: -10px;
+  background: @mainColor;
+  z-index: 99;
+  width: 100px;
+  height: 120px;
+  padding: 10px;
+  padding-top: 15px;
+  color: #fff;
+  text-align: center;
+  text-transform: uppercase;
+  left: 9px;
+  border-left: 1px solid @mainColor;
+  border-right: 1px solid @mainColor;
+  font-family: Helvetica,Calibri;
+  font-weight: 700;
+  font-size: 15px;
+  border-bottom: 2px dotted #d16301;
+  margin-bottom: 7px;
+  padding-bottom: 3px;
+}
+
+ .pizza-logo div{
+   background: @mainColor;
+
+ }
+
+.orange_label{
+  display: inline-block;
+  min-width: 10px;
+  padding: 3px 7px;
+  font-weight: 700;
+  line-height: 1;
+  color: #fff;
+  text-align: center;
+  white-space: nowrap;
+  vertical-align: middle;
+  border-radius: 10px;
+  background-color: @mainColor;
+  font-size: 14px;
+}
+
+.sign-in-button{
+  background: @mainColor;
+}
+
+.title{
+  color: white;
+  text-decoration: none;
+  font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+  background: @mainColor;
+}
+
+.l1{  font-size: 19px;
+}
+
+.l2{
+  font-size: 25px;
+}
+
+.l3{
+
+}
+
+.flag{
+  top: 90px;
+  transform: scaleY(-1);
+  width: 100px;
+  height: 11px;
+  left: -1px;
+  background-image: url(../images/discount.svg);
+  background-size: 100px 11px;
+  background-repeat: no-repeat;
+  padding: 0!important;
+  margin: 0!important;
+  position: absolute;
+}
+
+.flag-bottom{
+  bottom: 110px;
+
+  width: 100px;
+  height: 11px;
+  left: -1px;
+  background-image: url(../images/discount.svg);
+  background-size: 100px 11px;
+  background-repeat: no-repeat;
+  padding: 0!important;
+  margin: 0!important;
+  position: absolute;
+}
+
+.top-text-grey {
+  display:inline-block;
+  opacity: 0.8;
+  color: #a1a1a1;
+  background: none;
+}
