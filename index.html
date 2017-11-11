@@ -1,50 +1,167 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <link rel="stylesheet" type="text/css" href="styles.css"/>
+<html>
+<head lang="en">
     <meta charset="UTF-8">
     <title>Pizza</title>
 
-    <script src="jquery-3.2.1.min.js"></script>
-    <script  src="https://cdnjs.cloudflare.com/ajax/libs/less.js/2.5.3/less.min.js"></script>
+    <!-- Bootsrap CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+
+    <!-- LESS основний файл -->
+    <link rel="stylesheet/less" type="text/css" href="assets/less/main.less" />
+    <!-- LESS JavaScript компілятор -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/less.js/2.5.3/less.min.js"></script>
+
 
 </head>
 <body>
-<div class="top_panel"></div>
+
+<div class="bottom-icon">
+    <div class="flag-bottom">
+
+    </div>
+
+        <div class="title l3">
+           Цього тижня <br> на все
+        </div>
+        <div class="title l4">
+            -20%
+        </div>
+
+</div>
+
+
+<div class="top-panel">
+    <div class="site-icon">
+        <div class="flag">
+
+        </div>
+        <a class="pizza-logo"  href="/index.html">
+            <div class="title l1">
+                Pizza
+            </div>
+            <div class="title l2">
+                KMA
+            </div>
+        </a>
+    </div>
+
+    <div class="header-top-row">
+       <div class="main-header-top-items">
+            <div class="top-text-grey telephone">
+                (044) 222 5 222
+            </div>
+            <div class="top-text-grey time">
+                24 години/ 7 днів на тиждень
+            </div>
+            <div class="top-text-grey free-pizza">
+                Безкоштовна доставка піци
+            </div>
+            <div type="button" class="btn btn-warning sign-in-button">
+                Ввійти
+            </div>
+        </div>
+    </div>
+
+    <div class="top-text-grey pizza-label">
+        <span class=" pizza-page" style="color:white;">
+            <a href="/index.html" style="color:white;" class="hidden-xs">Піца</a> &nbsp;
+        </span>
+</div>
+
+</div>
 
 <div class = "main container-fluid">
     <div class="row">
         <div class="left_panel">
+            <div class="main-title">
+                <h2>
+                    <span class="title-text"> М'ясні піци</span>
+                    <span class="orange_label">5</span>
+                </h2>
+            </div>
+
+            <div class="all-pizza-type-wrap">
+                <ul class="nav nav-pills all-pizza-type">
+                    <li role="presentation" class="active pizza-filter-button" id="filter-button-all-pizza">
+                        <a href="#">
+                            Усі
+                        </a>
+                    </li>
+                    <li role="presentation" class="pizza-filter-button"  id="filter-button-meat">
+                        <a href="#" >
+                            Мясні
+                        </a>
+                    </li>
+                    <li role="presentation" class="pizza-filter-button" id="filter-button-pineapples">
+                        <a href="#">
+                            З ананасами
+                        </a>
+                    </li>
+                    <li role="presentation" class="pizza-filter-button" id="filter-button-mushrooms">
+                        <a href="#">
+                            З грибами
+                        </a>
+                    </li>
+                    <li role="presentation" class="pizza-filter-button" id="filter-button-ocean">
+                        <a href="#">
+                            З морепродуктами
+                        </a>
+                    </li>
+                    <li role="presentation" class="pizza-filter-button" id="filter-button-tomato">
+                        <a href="#">
+                            Вега
+                        </a>
+                    </li>
+                </ul>
+            </div>
+
+                <div class="row" id="pizza_list">
 
         </div>
-         <div class ="right_panel">
-             <div class="order">
+
+
+        <div class ="right_panel">
+
+            <div class="top-part">
                  <span class="text_order"> Замовлення
                  <span class="orange_label">0</span>
                  </span>
-                 <span class="clean"> Очистити замовлення </span>
-             </div>
-             <div class="all_orders"> </div>
-             <div class="result">
-                    <span class="text_sum"> Сума замовлення </span>
-                 <span class="count"> 000 грн </span>
-                 <div class="do_order_button">
-                     <button type="button" class="button" disabled="disabled">
-                         Замовити
-                     </button>
-                 </div>
+                <span class="clean"> Очистити замовлення </span>
+            </div>
 
-             </div>
-             <div></div>
-         </div>
+            <div class="main-part">
+                <div class="cart">
+
+
+                </div>
+            </div>
+
+            <div class="bottom-part">
+                <span class="text_sum"> Сума замовлення </span>
+                <span class="count"> 000 грн </span>
+                <div class="do_order_button">
+                    <button type="button" class="button" disabled="disabled">
+                        Замовити
+                    </button>
+                </div>
+
+            </div>
+            <div></div>
+        </div>
     </div>
 
 </div>
+</div>
 
-<script  type="text/javascript" src="jquery-3.2.1.min.js"></script>
-<script  type="text/javascript" src="main.js"></script>
+
+<!-- jQuery JavaScript -->
+<script type="text/javascript" src="https://code.jquery.com/jquery-2.1.4.min.js"> </script>
+
+<!--Bootsrap JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+
+<!--Own JavaScript -->
+<script type="text/javascript"  src="assets/js/main.js"> </script>
 </body>
 </html>
