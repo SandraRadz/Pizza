@@ -17,9 +17,11 @@ function getIngredientsArray(pizza) {
 }
 
    %>
-<div class="col-md-6 col-lg-4 pizza-card">
+
+
+<div class="col-sm-6 col-md-4 pizza-card">
     <div class="thumbnail">
-        <img class="pizza-icon" src="<%= pizza.icon %>" alt="Pizza">
+        <img class="pizza-icon" src="<%= pizza.icon %>" alt="Піца">
 
         <% if(pizza.is_new) { %>
         <span class="label label-danger">Нова</span>
@@ -27,15 +29,52 @@ function getIngredientsArray(pizza) {
         <span class="label label-success">Популярна</span>
         <% } %>
 
-        <div class="caption">
-            <span class="title"><%= pizza.title %></span>
-            <div class="type"><%= pizza.type %></div>
-            <div class="description">
-                <%= getIngredientsArray(pizza).join(", ") %>
+        <div class="caption"><h3><%= pizza.title %></h3>
+            <h5><%= pizza.type %></h5>
+            <div class="description"> <%= getIngredientsArray(pizza).join(", ") %> </div>
+            <div class="row">
+                <div class="col-sm-6 small-pizza">
+                    <div>
+                        <img class="size-icon" src="assets/images/size-icon.svg" alt="Розмір">
+                        <span class="number"> 30 </span>
+                    </div>
+                    <div>
+                        <img class="size-icon" src="assets/images/weight.svg" alt="Розмір">
+                        <span class="number"> 430 </span>
+                    </div>
+                    <h2>
+                        <div class="price">
+                            99
+                            <div style="font-size: 14px">грн</div>
+                        </div>
+                    </h2>
+                    <button class="btn btn-primary buy-little">Купити велику</button>
+                </div>
+
+
+                <div class="col-sm-6 big-pizza">
+                    <div>
+                        <img class="size-icon" src="assets/images/size-icon.svg" alt="Розмір">
+                        <span class="number"> 40 </span>
+                    </div>
+                    <div>
+                        <img class="size-icon" src="assets/images/weight.svg" alt="Розмір">
+                        <span class="number"> 660 </span>
+                    </div>
+                    <h2>
+                        <div class="price">
+                            169
+                            <div style="font-size: 14px">грн</div>
+                        </div>
+                    </h2>
+                    <button class="btn btn-primary buy-small">Купити маленьку</button>
+                    <button class="btn btn-primary buy-big">Купити велику</button>
+                </div>
+
             </div>
         </div>
-
-        <!-- Перед тим щоб показати кнопку необхідно переконатися, що піца має великий розмір -->
-        <button class="btn btn-primary buy-big">Купити велику</button>
     </div>
+
+
 </div>
+
