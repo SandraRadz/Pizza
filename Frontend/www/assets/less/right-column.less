@@ -64,7 +64,7 @@
     height: 100%;
     width: 100% ;
     margin: 0px;
-    margin-top: 15px;
+    margin-top: 45px;
     background-color: #F5F5F5;
     box-sizing: border-box;
     overflow-x: hidden;/*управляет отображением содержания блочного элемента по горизонтали, если контент целиком не помещается и выходит за область справа или слева от блока.*/
@@ -72,24 +72,128 @@
     overflow-y: scroll; /*полоса прокрутки*/
     display: block;
     z-index: 1000;
+    padding-bottom: @RightPanelBottomHeight+50px;
 
-    .cart{
-      padding-top: 20px;
-      padding-right: 61px;
-      padding-left: 24px;
-      padding-bottom: 10px;
-      margin-top: 15px;
-      height: 100%;
-      width: 100%;
-      box-sizing: content-box;
-      display: block;
-      margin-top: 15px;
-      background-color: #F5F5F5;
-      overflow-x: hidden;
-      overflow-y: auto;
+.bottom-part{
+  height: @RightPanelBottomHeight;
+}
+
+.order{
+  height: auto;
+
+  padding: 20px 61px 10px 24px;
+  border-bottom: 1px solid rgba(0,0,0,.1);
+  position: relative;
+  overflow: hidden;
+  background: #F5F5F5;
+
+  .order-size{
+    margin-top: 6px;
+    margin-bottom: 8px;
+
+    span {
+      font-size: 12px;
+    }
+    img {
+      font-size: 12px;
+    }
+  }
+  .price-box{
+    span {
+      color: #333333;
+      font-size: 14px;
+      font-weight: 700;
     }
   }
 
+  .weight-img{
+    margin-left: 15px;
+  }
+  .price{
+    margin-right: 10px;
+  }
+  .btn {
+    display: inline-block;
+    margin-bottom: 0;
+    font-weight: 400;
+    white-space: nowrap;
+    vertical-align: middle;
+    -ms-touch-action: manipulation;
+    touch-action: manipulation;
+    cursor: pointer;
+    user-select: none;
+    border: 1px solid transparent;
+    background: none;
+
+  }
+
+
+
+  .glyphicon{
+    width: 30px;
+    height: 30px;
+    padding: 6px 0;
+    font-size: 12px;
+    line-height: 1.428571429;
+    border-radius: 15px;
+    text-align: center;
+    text-shadow: 0 -1px 0 rgba(0,0,0,.2);
+    box-shadow: inset 0 1px 0 rgba(255,255,255,.15), 0 1px 1px rgba(0,0,0,.075);
+}
+  div{
+    background: #F5F5F5;
+
+    span{
+      background: #F5F5F5;
+    }
+
+    img{
+      background: #F5F5F5;
+    }
+  }
+      .pizza-icon{
+        position: absolute;
+        right: -48px;
+        top: 15px;
+        border-radius: 50% 0 0 50%;
+        max-height: 96px;
+        max-width: 96px;
+        }
+    }
+
+    .order-title{
+      line-height: 16px;
+      font-size: 20px;
+      color: #ec890e;
+    }
+      .glyphicon-minus{
+        background-image: linear-gradient(to bottom,#d9534f 0,#c12e2a 100%);
+        background-repeat: repeat-x;
+        border-color: #b92c28;
+
+      }
+      .glyphicon-plus{
+        background-image: linear-gradient(rgb(92, 184, 92) 0px, rgb(65, 150, 65) 100%);
+        background-repeat: repeat-x;
+        border-color: rgb(62, 143, 62);
+      }
+      .glyphicon-remove{
+        width: 25px;
+        color: @mainColor;
+        text-shadow: rgb(255, 255, 255) 0px 1px 0px;
+        background-image: linear-gradient(rgb(255, 255, 255) 0px, rgb(224, 224, 224) 100%);
+        background-repeat: repeat-x;
+        border-color: rgb(204, 204, 204);
+
+      }
+
+
+  }
+
+  .order-pizza-count{
+    padding-right: 3px;
+    padding-left: 3px;
+  }
   .bottom-part{
     font-weight: 700;
     line-height: 17px;
@@ -125,9 +229,10 @@
       position: absolute;
       right: 0px;
       font-weight: 700;
-      font-size: 20px;
+      font-size: 24px;
       margin-bottom: 15px;
       padding-right: 30px;
+
 
     }
     .do_order_button{
@@ -152,43 +257,17 @@
     }
 
     .button{
-      display: block;
       text-shadow: 0 -1px 0 rgba(0,0,0,.2);
       box-shadow: inset 0 1px 0 rgba(255,255,255,.15), 0 1px 1px rgba(0,0,0,.075);
       color: #fff;
       background-color: @mainColor;
-      text-align: center;
-      white-space: nowrap;
-      vertical-align: middle;
-      touch-action: manipulation;
-      cursor: pointer;
-      border: 1px solid transparent;
-      font-family: inherit;
-      overflow: visible;
-      margin: 0;
-      font: inherit;
-      align-items: flex-start;
-      text-rendering: auto;
-      letter-spacing: normal;
-      word-spacing: normal;
-      text-transform: none;
-      text-indent: 0px;
-      text-rendering: auto;
-      letter-spacing: normal;
-      word-spacing: normal;
-      text-indent: 0px;
-      -webkit-writing-mode: horizontal-tb;
-      background-image: linear-gradient(to bottom, #f0ad4e 0, @mainColor 100%);
-      background-repeat: repeat-x;
-      border-color: @mainColor;
       width: 80%;
       padding: 10px 16px;
       font-size: 18px;
-      line-height: 1.3333333;
-      border-radius: 6px;
+      border-radius: 8px;
+      background-image: linear-gradient(to bottom, #f0ad4e 0, @mainColor 100%);
     }
   }
-
 }
 
 

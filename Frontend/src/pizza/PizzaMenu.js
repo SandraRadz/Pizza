@@ -10,36 +10,51 @@ var $pizza_list = $("#pizza_list");
 
 function showPizzaList(list) {
     //Очищаємо старі піци в кошику
+
     $pizza_list.html("");
 
     //Онволення однієї піци
     function showOnePizza(pizza) {
-        var html_code = Templates.PizzaMenu_OneItem({pizza: pizza});
 
+        var html_code = Templates.PizzaMenu_OneItem({pizza: pizza});
         var $node = $(html_code);
 
-        $node.find(".buy-big").click(function(){
+        $node.find(".buy-button-big").click(function(){
             PizzaCart.addToCart(pizza, PizzaCart.PizzaSize.Big);
         });
-        $node.find(".buy-small").click(function(){
+        $node.find(".buy-button-small").click(function(){
             PizzaCart.addToCart(pizza, PizzaCart.PizzaSize.Small);
         });
-
         $pizza_list.append($node);
     }
 
     list.forEach(showOnePizza);
+    $('.pizza-count').text('').append(list.length);
+
 }
+
+$(".pizza-button").click(function(){
+   if($(this).hasClass('active')) return;
+    $(".pizza-button").removeClass('active');
+   $(this).addClass('active');
+    var filter=$(this).text().trim();
+    if(filter=='Усі')showPizzaList(Pizza_List);
+    else if(filter=='З ананасами')filterPizza('pineapple');
+    else if(filter=='Мясні')filterPizza('meat');
+    else if(filter=='З грибами')filterPizza('mushroom');
+    else if(filter=='З морепродуктами')filterPizza('ocean');
+});
+
 
 function filterPizza(filter) {
     //Масив куди потраплять піци які треба показати
     var pizza_shown = [];
-
     Pizza_List.forEach(function(pizza){
-        //Якщо піка відповідає фільтру
+        //Якщо піца відповідає фільтру
         //pizza_shown.push(pizza);
+        if(pizza.content[filter])
 
-        //TODO: зробити фільтри
+            pizza_shown.push(pizza);
     });
 
     //Показати відфільтровані піци

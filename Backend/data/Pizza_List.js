@@ -174,4 +174,4 @@ var pizza_info = [
     }
 ];
 
-module.exports = pizza_info;  //змінна яку ми імпортуємо
+module.exports = pizza_info;

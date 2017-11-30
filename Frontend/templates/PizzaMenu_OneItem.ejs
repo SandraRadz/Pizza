@@ -1,5 +1,4 @@
 <%
-
 function getIngredientsArray(pizza) {
     //Отримує вміст піци
     var content = pizza.content;
@@ -8,73 +7,75 @@ function getIngredientsArray(pizza) {
     //Object.keys повертає масив ключів в об’єкті JavaScript
 
     Object.keys(content).forEach(function(key){
-
         //a.concat(b) створює спільний масив із масивів a та b
         result = result.concat(content[key]);
     });
-
     return result;
 }
-
    %>
 
 
-<div class="col-sm-6 col-md-4 pizza-card">
+<div class="col-md-6 col-lg-4 pizza-card">
     <div class="thumbnail">
         <img class="pizza-icon" src="<%= pizza.icon %>" alt="Піца">
 
         <% if(pizza.is_new) { %>
-        <span class="label label-danger">Нова</span>
+        <h3 class="pizza-label-new"> <span class="label label-danger">Нова</span></h3>
         <% } else if(pizza.is_popular) {%>
-        <span class="label label-success">Популярна</span>
+        <h3 class="pizza-label-popular">  <span class="label label-success">Популярна</span></h3>
         <% } %>
 
         <div class="caption"><h3><%= pizza.title %></h3>
             <h5><%= pizza.type %></h5>
             <div class="description"> <%= getIngredientsArray(pizza).join(", ") %> </div>
             <div class="row">
-                <div class="col-sm-6 small-pizza">
+                <%
+                function	getPizzaColumn(pizza)	{
+                    if(pizza.big_size && pizza.small_size)	{
+                        return	"col-sm-6";
+                    }	else	{	return	"col-sm-12";}
+                }
+                %>
+                <% if(pizza.small_size) {%>
+                <div class="<%=	getPizzaColumn(pizza)	%> small-pizza">
                     <div>
                         <img class="size-icon" src="assets/images/size-icon.svg" alt="Розмір">
-                        <span class="number"> 30 </span>
+                        <span class="number"> <%= pizza.small_size.size %> </span>
                     </div>
                     <div>
                         <img class="size-icon" src="assets/images/weight.svg" alt="Розмір">
-                        <span class="number"> 430 </span>
+                        <span class="number"> <%= pizza.small_size.weight %> </span>
                     </div>
                     <h2>
                         <div class="price">
-                            99
+                            <%= pizza.small_size.price %>
                             <div style="font-size: 14px">грн</div>
                         </div>
                     </h2>
-                    <button class="btn btn-primary buy-little">Купити велику</button>
+                    <a class="btn btn-warning buy-button-small" role="button">Купити</a>
                 </div>
-
-
-                <div class="col-sm-6 big-pizza">
+                <%}%>
+                <% if(pizza.big_size) { %>
+                <div class="<%=	getPizzaColumn(pizza)	%> big-pizza">
                     <div>
                         <img class="size-icon" src="assets/images/size-icon.svg" alt="Розмір">
-                        <span class="number"> 40 </span>
+                        <span class="number"> <%= pizza.big_size.size %> </span>
                     </div>
                     <div>
                         <img class="size-icon" src="assets/images/weight.svg" alt="Розмір">
-                        <span class="number"> 660 </span>
+                        <span class="number"> <%= pizza.big_size.weight %> </span>
                     </div>
                     <h2>
                         <div class="price">
-                            169
-                            <div style="font-size: 14px">грн</div>
+                            <%= pizza.big_size.price %>
+                            <div style="font-size:14px;">грн</div>
                         </div>
                     </h2>
-                    <button class="btn btn-primary buy-small">Купити маленьку</button>
-                    <button class="btn btn-primary buy-big">Купити велику</button>
+                    <a class="btn btn-warning buy-button-big">Купити</a>
                 </div>
-
+                <%}%>
             </div>
         </div>
     </div>
-
-
 </div>
 
