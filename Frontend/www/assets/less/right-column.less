@@ -184,10 +184,7 @@
         background-image: linear-gradient(rgb(255, 255, 255) 0px, rgb(224, 224, 224) 100%);
         background-repeat: repeat-x;
         border-color: rgb(204, 204, 204);
-
       }
-
-
   }
 
   .order-pizza-count{
@@ -213,11 +210,15 @@
     z-index: 1010;
 
 
-    .text_sum{
+    #text_sum{
       width:80%;
     }
 
-    .text_sum, .count{
+    .correct{
+      font-size: 14px;
+    }
+
+    #text_sum, #count{
       font-weight: 700;
       font-size: 15px;
       margin-bottom: 15px;
@@ -225,7 +226,7 @@
 
     }
 
-    .count{
+    #count{
       position: absolute;
       right: 0px;
       font-weight: 700;
@@ -236,8 +237,11 @@
 
     }
     .do_order_button{
-      padding: 20px;
-      padding-right: 40px;
+      position: absolute;
+      bottom: 10px;
+      right: 40px;
+      left: 10px;
+      height: 47px;
     }
 
     .p{
@@ -266,6 +270,10 @@
       font-size: 18px;
       border-radius: 8px;
       background-image: linear-gradient(to bottom, #f0ad4e 0, @mainColor 100%);
+    }
+
+    .correct{
+      font-size: 14px;
     }
   }
 }

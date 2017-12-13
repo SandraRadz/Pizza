@@ -17,14 +17,18 @@ var $cart = $(".main-part");
 
 
 function addToCart(pizza, size) {
+    document.getElementById("text_sum").style.display='inline-block';
+    document.getElementById("count").style.display='inline-block';
     //Додавання однієї піци в кошик покупок
     console.log(pizza);
+
     for (var i = 0; i < Cart.length; i++) {
         if (Cart[i].pizza.id== pizza.id && Cart[i].size == size) { //додавання кількості, якщо натискати на вже замовлену піцу
             Cart[i].quantity++;
             updateCart();
             return;
         }
+
     }
 
     //Приклад реалізації, можна робити будь-яким іншим способом
@@ -58,6 +62,10 @@ function removeFromCart(cart_item) {
         $(".no-orders").removeClass("none");
         $(".order-header").addClass("none");
         $('.btn-order').attr('disabled','disabled');
+        document.getElementById("text_sum").style.display='none';
+        document.getElementById("count").style.display='none';
+       // document.getElementsByClassName("order_pizza").style.backgroundColor = '#ec222e';
+       // document.getElementsByClassName("order_pizza").disabled = false;
     }
     updateCart();
 }
@@ -74,6 +82,8 @@ function initialiseCart() {
         $(".no-orders").removeClass("none");
         $(".order-header").addClass("none");
         $('.btn-order').attr('disabled','disabled');
+        document.getElementById("text_sum").style.display='none';
+        document.getElementById("count").style.display='none';
     }
     updateCart();
 }
@@ -84,6 +94,11 @@ function getPizzaInCart() {
 }
 
 function updateCart() {
+    if (Cart.length!=0){
+        document.getElementById("text_sum").style.display='inline-block';
+        document.getElementById("count").style.display='inline-block';
+      //  document.getElementsByClassName("order_pizza").style.backgroundColor = '#ec890e';
+    }
     //Функція викликається при зміні вмісту кошика
     //Тут можна наприклад показати оновлений кошик на екрані та зберегти вміт кошика в Local Storage
     localStorage.setItem("pizzaCartData", JSON.stringify(Cart));
@@ -131,9 +146,11 @@ function updateCart() {
         $cart.append($node);
     }
 
+
+
     Cart.forEach(showOnePizzaInCart);
     $(".count_pizza").text('').append(Cart.length); //при кожній появі піци, стираємо текст з кружечка і записуємо довжину масиву
-    $(".count").text("").append(total);//стираємо суму, записуємо суму
+    $("#count").text("").append(total);//стираємо суму, записуємо суму
 }
 
 var total=function(){

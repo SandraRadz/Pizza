@@ -1,9 +1,9 @@
 <% include common/header.ejs %>
 
-            <div class="row" id="pizza_list">
-                <!-- сюди додаватимуться піци $pizza_list  -->
+<div class="order-panel">
+    <div class="order-title"> 1. Контактні дані </div>
 
-            </div>
+</div>
 
 
             <div class ="right_panel">
@@ -21,11 +21,11 @@
                 </div>
 
                 <div class="bottom-part">
-                    <span class="text_sum"> Сума замовлення </span>
-                    <span class="count"> 000 </span>
+                    <span id="text_sum"> Сума замовлення </span>
+                    <span id="count"> 000 </span>
                     <div class="do_order_button">
-                        <button type="button" class="btn btn warning button">
-                            <a href="http://localhost:5050/index.html" style="color:white;">Редагувати замовлення</a>
+                        <button type="button" class="btn btn warning button"  onclick='location.href="http://localhost:5050/index.html"'>
+                            Редагувати замовлення
                         </button>
                     </div>
 

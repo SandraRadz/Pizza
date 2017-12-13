@@ -227,14 +227,18 @@ var $cart = $(".main-part");
 
 
 function addToCart(pizza, size) {
+    document.getElementById("text_sum").style.display='inline-block';
+    document.getElementById("count").style.display='inline-block';
     //Додавання однієї піци в кошик покупок
     console.log(pizza);
+
     for (var i = 0; i < Cart.length; i++) {
         if (Cart[i].pizza.id== pizza.id && Cart[i].size == size) { //додавання кількості, якщо натискати на вже замовлену піцу
             Cart[i].quantity++;
             updateCart();
             return;
         }
+
     }
 
     //Приклад реалізації, можна робити будь-яким іншим способом
@@ -268,6 +272,10 @@ function removeFromCart(cart_item) {
         $(".no-orders").removeClass("none");
         $(".order-header").addClass("none");
         $('.btn-order').attr('disabled','disabled');
+        document.getElementById("text_sum").style.display='none';
+        document.getElementById("count").style.display='none';
+       // document.getElementsByClassName("order_pizza").style.backgroundColor = '#ec222e';
+       // document.getElementsByClassName("order_pizza").disabled = false;
     }
     updateCart();
 }
@@ -284,6 +292,8 @@ function initialiseCart() {
         $(".no-orders").removeClass("none");
         $(".order-header").addClass("none");
         $('.btn-order').attr('disabled','disabled');
+        document.getElementById("text_sum").style.display='none';
+        document.getElementById("count").style.display='none';
     }
     updateCart();
 }
@@ -294,6 +304,11 @@ function getPizzaInCart() {
 }
 
 function updateCart() {
+    if (Cart.length!=0){
+        document.getElementById("text_sum").style.display='inline-block';
+        document.getElementById("count").style.display='inline-block';
+      //  document.getElementsByClassName("order_pizza").style.backgroundColor = '#ec890e';
+    }
     //Функція викликається при зміні вмісту кошика
     //Тут можна наприклад показати оновлений кошик на екрані та зберегти вміт кошика в Local Storage
     localStorage.setItem("pizzaCartData", JSON.stringify(Cart));
@@ -341,9 +356,11 @@ function updateCart() {
         $cart.append($node);
     }
 
+
+
     Cart.forEach(showOnePizzaInCart);
     $(".count_pizza").text('').append(Cart.length); //при кожній появі піци, стираємо текст з кружечка і записуємо довжину масиву
-    $(".count").text("").append(total);//стираємо суму, записуємо суму
+    $("#count").text("").append(total);//стираємо суму, записуємо суму
 }
 
 var total=function(){
@@ -1471,29 +1488,34 @@ exports.cache = {
 
 },{}],9:[function(require,module,exports){
 module.exports={
-  "_from": "ejs@^2.4.1",
+  "_args": [
+    [
+      "ejs@2.5.7",
+      "C:\\Users\\Oleksandra\\Documents\\GitHub\\Project"
+    ]
+  ],
+  "_from": "ejs@2.5.7",
   "_id": "ejs@2.5.7",
   "_inBundle": false,
   "_integrity": "sha1-zIcsFoiArjxxiXYv1f/ACJbJUYo=",
   "_location": "/ejs",
   "_phantomChildren": {},
   "_requested": {
-    "type": "range",
+    "type": "version",
     "registry": true,
-    "raw": "ejs@^2.4.1",
+    "raw": "ejs@2.5.7",
     "name": "ejs",
     "escapedName": "ejs",
-    "rawSpec": "^2.4.1",
+    "rawSpec": "2.5.7",
     "saveSpec": null,
-    "fetchSpec": "^2.4.1"
+    "fetchSpec": "2.5.7"
   },
   "_requiredBy": [
     "/"
   ],
   "_resolved": "https://registry.npmjs.org/ejs/-/ejs-2.5.7.tgz",
-  "_shasum": "cc872c168880ae3c7189762fd5ffc00896c9518a",
-  "_spec": "ejs@^2.4.1",
-  "_where": "C:\\Users\\Admin\\WebstormProjects\\untitled",
+  "_spec": "2.5.7",
+  "_where": "C:\\Users\\Oleksandra\\Documents\\GitHub\\Project",
   "author": {
     "name": "Matthew Eernisse",
     "email": "mde@fleegix.org",
@@ -1502,7 +1524,6 @@ module.exports={
   "bugs": {
     "url": "https://github.com/mde/ejs/issues"
   },
-  "bundleDependencies": false,
   "contributors": [
     {
       "name": "Timothy Gu",
@@ -1511,7 +1532,6 @@ module.exports={
     }
   ],
   "dependencies": {},
-  "deprecated": false,
   "description": "Embedded JavaScript templates",
   "devDependencies": {
     "browserify": "^13.0.1",
