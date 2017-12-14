@@ -212,6 +212,8 @@ $(function(){
  * Created by chaika on 02.02.16.
  */
 var Templates = require('../Templates');
+var $clientPhone=$("#inputNumber");
+var phoneCheck =$(".phone-help-block");
 
 //Перелік розмірів піци
 var PizzaSize = {
@@ -371,6 +373,40 @@ $(".correct").click(function () {
     location.href="http://localhost:5050/index.html";
 
 });
+
+$(".next-step-button").click(function () {
+
+var val = $("#inputName").val().trim();
+    if(val.length<2) {
+    document.getElementById("help name-help-block").style.display='inline-block';
+
+   // $("#inputName").style.borderColor="red";
+      //  document.getElementsByClassName("col-sm-2 controle-label nl").style.color='red';
+       // $(".name-group").removeClass(".has-success").addClass(".has-error");
+
+    }
+else{
+        document.getElementById("help name-help-block").style.display='none';
+       // $(".name-group").removeClass(".has-error").addClass(".has-success");
+    }
+        var value = $("#inputNumber").val().trim();
+    if (value == "" || (value.charAt(0) != '+' && value.charAt(0) != '0') || (value.charAt(0) == '+' && value.length != 13) || (value.charAt(0) == '0' && value.length != 10)) {
+            document.getElementById("help phone-help-block").style.display='inline-block';
+        $(".form-group has-success phone-group").removeClass(".has-success").addClass(".has-error");
+        }
+else{ document.getElementById("help phone-help-block").style.display='none';
+        $(".form-group has-success phone-group").removeClass(".has-error").addClass(".has-success");
+    }
+    var value1 = $("#inputAdress").val().trim();
+    if (value1 == "") {
+        document.getElementById("help adress-help-block").style.display='inline-block';
+        $(".form-group adress-group has-success").removeClass(".has-success").addClass(".has-error");
+    }
+ else{document.getElementById("help adress-help-block").style.display='none';
+    $(".form-group adress-group has-success").removeClass(".has-error").addClass(".has-success");}
+
+});
+
 var total=function(){
     var t=0;
     for (var i = 0; i < Cart.length; i++) {
@@ -379,6 +415,8 @@ var total=function(){
     }
     return t+" грн";
 }
+
+
 
 exports.removeFromCart = removeFromCart;
 exports.addToCart = addToCart;
