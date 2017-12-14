@@ -68,24 +68,93 @@
     </div>
 </div>
 
-            <div class ="right_panel">
+<div class = "main container-fluid">
+    <div class="row order-page-panel">
+        <div class="left_panel">
+            <h2>1. Контактні дані</h2>
+            <div class="row">
+                <div class="col-md-7">
 
-                <div class="top-part">Замовлення
-                    <span class="orange_label count_pizza">0</span>
-                    </span>
-                    <span class="clean"> Очистити замовлення </span>
+                    <form class="form-horizontal"> <!--action="/action_page.php"-->
+                        <div class="form-group name-group">
+                            <label class="col-sm-2 controle-label">Ім'я:</label>
+                            <div class="col-sm-10">
+                            <input class="form-control" type="text" id="inputName" placeholder="Ім'я, Прізвище " name="">
+                            </div>
+                            <span class="name-help-block" style="display: none">
+                                "Ім'я має складатися лише з букв"
+
+                            </span>
+                        </div>
+
+                        <div class="form-group phone-group">
+                            <label class="col-sm-2 controle-label">Телефон:</label>
+                            <div class="col-sm-10">
+                                <input class="form-control" type="text" id="inputNumber" placeholder="+3801234567890" name="">
+                            </div>
+                            <span class="name-help-block" style="display: none">
+                                "Телефон не має містити букв, почніть з +380 або 0"
+
+                            </span>
+                        </div>
+
+                        <div class="form-group address-group">
+                            <label class="col-sm-2 controle-label">Адреса:</label>
+                            <div class="col-sm-10">
+                                <input class="form-control" type="text" id="inputAdrress" placeholder="Київ, вул. Спаська, 8" name="">
+                            </div>
+                            <span class="name-help-block" style="display: none">
+                                "Введіть адресу"
+                            </span>
+                        </div>
+                    </form>
                 </div>
 
+
+                <div class="col-md-5 order-summary">
+                    <div class=" bs-callout bs-callout-warning">
+                        <h4>Інформація про замовлення</h4>
+                        <p class="order-summery-time">
+                            <b>Приблизний час доставки:</b> невідомий
+                        </p>
+                        <p class="order-summery-adress">
+                            <b>Адреса доставки:</b> невідома
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="form-group next-step-wrap">
+                    <div class="next-step-width">
+            <button type="submit" class="btn btn-warning btn-block next-step-button">Далі
+                <i class="	glyphicon glyphicon-chevron-right icon-white"></i>
+            </button>
+        </div>
+                </div>
+            </div>
+        </div>
+
+            <div class ="right_panel">
+
+                <div class="top-part">
+                 <span class="text_order"> Замовлення
+                 <span class="orange_label count_pizza">0</span>
+                 </span>
+                    <span class="clean"> Очистити замовлення </span>
+                </div>
+                <div class="empty" display="none">Пусто в холодильнику? </div>
+                <div class="empty e2" display="none"> Замовте піцу!</div>
                 <div class="main-part">
 
 
                 </div>
 
                 <div class="bottom-part">
-                    <span id="text_sum"> Сума замовлення </span>
+                    <span id="text_sum" > Сума замовлення </span>
                     <span id="count"> 000 </span>
                     <div class="do_order_button">
-                        <button type="button" class="btn btn warning button correct"  onclick='location.href="http://localhost:5050/index.html"'>
+                        <button type="button" class="btn btn warning button correct" >
                             Редагувати замовлення
                         </button>
                     </div>

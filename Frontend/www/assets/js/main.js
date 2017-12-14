@@ -274,8 +274,8 @@ function removeFromCart(cart_item) {
         $('.btn-order').attr('disabled','disabled');
         document.getElementById("text_sum").style.display='none';
         document.getElementById("count").style.display='none';
-       // document.getElementsByClassName("order_pizza").style.backgroundColor = '#ec222e';
-       // document.getElementsByClassName("order_pizza").disabled = false;
+        // document.getElementsByClassName("order_pizza").style.backgroundColor = '#ec222e';
+        // document.getElementsByClassName("order_pizza").disabled = false;
     }
     updateCart();
 }
@@ -307,7 +307,7 @@ function updateCart() {
     if (Cart.length!=0){
         document.getElementById("text_sum").style.display='inline-block';
         document.getElementById("count").style.display='inline-block';
-      //  document.getElementsByClassName("order_pizza").style.backgroundColor = '#ec890e';
+        //  document.getElementsByClassName("order_pizza").style.backgroundColor = '#ec890e';
     }
     //Функція викликається при зміні вмісту кошика
     //Тут можна наприклад показати оновлений кошик на екрані та зберегти вміт кошика в Local Storage
@@ -362,7 +362,15 @@ function updateCart() {
     $(".count_pizza").text('').append(Cart.length); //при кожній появі піци, стираємо текст з кружечка і записуємо довжину масиву
     $("#count").text("").append(total);//стираємо суму, записуємо суму
 }
+$(".order_pizza").click(function () {
+    if(Cart.length>0){
+        location.href="http://localhost:5050/orderPage.html";}
+});
 
+$(".correct").click(function () {
+    location.href="http://localhost:5050/index.html";
+
+});
 var total=function(){
     var t=0;
     for (var i = 0; i < Cart.length; i++) {
