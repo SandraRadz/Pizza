@@ -12,8 +12,10 @@
     "basil.js": "^0.4.3",
     "brfs": "^1.4.3",
     "ejs": "^2.4.1",
+    "express": "^4.16.2",
     "grunt-browserify": "^4.0.1",
-    "grunt-contrib-watch": "^0.6.1"
+    "grunt-contrib-watch": "^0.6.1",
+    "morgan": "^1.9.0"
   },
   "devDependencies": {
     "grunt": "^0.4.5"

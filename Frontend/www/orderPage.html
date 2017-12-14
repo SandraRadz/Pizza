@@ -11,6 +11,10 @@
     <link rel="stylesheet/less" type="text/css" href="assets/less/main.less" />
     <!-- LESS JavaScript компілятор -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/less.js/2.5.3/less.min.js"></script>
+    <script	type="text/javascript"
+               src="http://maps.googleapis.com/maps/api/js?key=AIzaSyAW_ZyF2UXfgjVD_TqMj7BLvn2pfFic3Oo">
+    </script>
+    <script	src="//static.liqpay.com/libjs/checkout.js" async></script>
 </head>
 <body>
 
@@ -98,7 +102,7 @@
                             </span>
                         </div>
 
-                        <div class="form-group address-group">
+                        <div class="form-group adress-group">
                             <label class="col-sm-2 controle-label al">Адреса:</label>
                             <div class="col-sm-10">
                                 <input class="form-control" type="text" id="inputAdress" placeholder="Київ, вул. Спаська, 8" name="">
@@ -127,13 +131,16 @@
             <div class="row">
                 <div class="form-group next-step-wrap">
                     <div class="next-step-width">
-            <button type="submit" class="btn btn-warning btn-block next-step-button">Далі
+            <button type="submit" id="submit" class="btn btn-warning btn-block next-step-button">Далі
                 <i class="	glyphicon glyphicon-chevron-right icon-white"></i>
             </button>
         </div>
                 </div>
             </div>
+
+            <div id="googleMap"></div>
         </div>
+        <div id="liqpay" style="z-index:9999999"></div>
 
             <div class ="right_panel">
 

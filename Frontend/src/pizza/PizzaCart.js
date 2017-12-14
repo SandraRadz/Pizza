@@ -168,32 +168,34 @@ $(".next-step-button").click(function () {
 
 var val = $("#inputName").val().trim();
     if(val.length<2) {
+        $(".name-group").removeClass(".form-group has-error").addClass(".form-group has-error");
     document.getElementById("help name-help-block").style.display='inline-block';
 
    // $("#inputName").style.borderColor="red";
       //  document.getElementsByClassName("col-sm-2 controle-label nl").style.color='red';
-       // $(".name-group").removeClass(".has-success").addClass(".has-error");
-
     }
 else{
         document.getElementById("help name-help-block").style.display='none';
-       // $(".name-group").removeClass(".has-error").addClass(".has-success");
+       $(".name-group").removeClass(".form-group has-error").addClass(".form-group has-success");
     }
+
         var value = $("#inputNumber").val().trim();
     if (value == "" || (value.charAt(0) != '+' && value.charAt(0) != '0') || (value.charAt(0) == '+' && value.length != 13) || (value.charAt(0) == '0' && value.length != 10)) {
             document.getElementById("help phone-help-block").style.display='inline-block';
-        $(".form-group has-success phone-group").removeClass(".has-success").addClass(".has-error");
+       // $("#nl").background='#ec890e';
+        $(".phone-group").removeClass(".form-group has-success").addClass(".form-group has-error");
         }
 else{ document.getElementById("help phone-help-block").style.display='none';
-        $(".form-group has-success phone-group").removeClass(".has-error").addClass(".has-success");
+        $(".phone-group").removeClass(".form-group has-error").addClass(".form-group has-success");
     }
+
     var value1 = $("#inputAdress").val().trim();
     if (value1 == "") {
         document.getElementById("help adress-help-block").style.display='inline-block';
-        $(".form-group adress-group has-success").removeClass(".has-success").addClass(".has-error");
+        $(".adress-group").removeClass(".form-group has-success").addClass(".form-group has-error");
     }
  else{document.getElementById("help adress-help-block").style.display='none';
-    $(".form-group adress-group has-success").removeClass(".has-error").addClass(".has-success");}
+    $(".adress-group").removeClass(".form-group has-error").addClass(".form-group has-success");}
 
 });
 
@@ -206,8 +208,35 @@ var total=function(){
     return t+" грн";
 }
 
+/*function	initialize()	{
+//Тут починаємо працювати з картою
+    varmapProp =	{
+        center:	new	google.maps.LatLng(50.464379,30.519131),
+        zoom:	11
+    };
+    var html_element =	document.getElementById("googleMap");
+    varmap	=	new	google.maps.Map(html_element,	 mapProp);
+//Карта створена і показана
+}
+//Коли сторінка завантажилась
+google.maps.event.addDomListener(window,	 'load',	initialize);
 
+var point	=	new	google.maps.LatLng(50.464379,30.519131);
+var marker	=	new	google.maps.Marker({
+    position:	point,
+//map	- це змінна карти створена за допомогою new
+   // google.maps.Map(...)
+map:	map,
+    icon:	"assets/images/map-icon.png"
+});
 
+google.maps.event.addListener(map,
+    'click',function(me){
+        var coordinates	=	me.latLng;
+//coordinates	- такий самий об’єкт як створений new
+     //   google.maps.LatLng(...)
+    });
+*/
 exports.removeFromCart = removeFromCart;
 exports.addToCart = addToCart;
 

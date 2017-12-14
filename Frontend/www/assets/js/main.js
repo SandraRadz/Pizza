@@ -188,11 +188,122 @@ exports.PizzaMenu_OneItem = ejs.compile("<%\nfunction getIngredientsArray(pizza)
 
 exports.PizzaCart_OneItem = ejs.compile("<div class=\"order\">\n    <img class=\"img-aside pizza-icon\" src=\"<%= pizza.icon %>\">\n    <div class=\"order-title\">\n        <%= pizza.title %> (<%= size==\"big_size\" ? \"Велика\" : \"Маленька\" %>)\n    </div>\n    <div class=\"order-size\">\n        <img class=\"diagonal-img\" src=\"assets/images/size-icon.svg\">\n        <span class=\"diagonal-size\"><%=pizza[size].size%></span>\n        <img class=\"weight-img\" src=\"assets/images/weight.svg\">\n        <span class=\"weight-size\"><%=pizza[size].weight%></span>\n    </div>\n    <div class=\"price-box\">\n        <span class=\"price\"><%=quantity*pizza[size].price%> грн</span>\n        <a class=\"minus btn-xs btn btn-danger btn-circle\">\n            <i class=\"glyphicon glyphicon-minus icon-white\"></i>\n        </a>\n        <span class=\" label order-pizza-count\" ><%=quantity%></span>\n        <a class=\"plus btn-xs btn btn-success btn-circle\">\n            <i class=\"glyphicon glyphicon-plus icon-white\"></i>\n        </a>\n        <a class=\"count-clear btn-xs btn btn-default btn-circle\" >\n            <i class=\"glyphicon glyphicon-remove icon-white remove-icon\"></i>\n        </a>\n    </div>\n</div>\n");
 
-},{"ejs":7}],3:[function(require,module,exports){
+},{"ejs":9}],3:[function(require,module,exports){
+var map;
+var point;
+var directionsDisplay;
+var newMarker;
+
+function	initialize()	{
+//Тут починаємо працювати з картою
+    directionsDisplay = new google.maps.DirectionsRenderer();
+    var mapProp =	{
+        center:	new	google.maps.LatLng(50.464379,30.519131),
+        zoom:	13
+    };
+    var html_element =	document.getElementById("googleMap");
+    map	= new google.maps.Map(html_element, mapProp);
+//Карта створена і показана
+    directionsDisplay.setMap(map);
+    directionsDisplay.setOptions( { suppressMarkers: true } );
+    point = new	google.maps.LatLng(50.464379,30.519131);
+    var marker	=	new	google.maps.Marker({
+        position: point,
+        map: map,
+        icon: {
+            url:"assets/images/map-icon.png",
+            anchor: new google.maps.Point(30, 30)
+        }
+    });
+    google.maps.event.addListener(map, 'click', function(me){
+        var coordinates	=	me.latLng;
+        geocodeLatLng(coordinates,	function(err,	adress){
+            if(!err){
+                //Дізналися адресу
+                $("#inputAdress").val(adress);
+                $(".order-summery-adress").text(adress);
+                $("#inputAdress").css("box-shadow", "0 0 3px #006600");
+                if(newMarker)newMarker.setMap(null);
+                newMarker	=	new	google.maps.Marker({
+                    position: coordinates,
+                    map: map,
+                    icon: {
+                        url:"assets/images/home-icon.png",
+                        anchor: new google.maps.Point(30, 30)
+                    }
+                });
+                calculateRoute(point, coordinates, function(err, data){
+                    if(!err){
+                        directionsDisplay.setDirections(data.route);
+                        $(".order-summery-time").text(data.duration);
+                    }
+                    else console.log(err);
+                })
+            } else {
+                console.log(err);
+            }
+        });
+    });
+}
+//Коли сторінка завантажилась
+google.maps.event.addDomListener(window, 'load', initialize);
+
+function geocodeLatLng(latlng, callback){
+//Модуль за роботу з адресою
+    var geocoder	=	new	google.maps.Geocoder();
+    geocoder.geocode({'location':	latlng},	function(results,	status)	{
+        if	(status	===	google.maps.GeocoderStatus.OK&&	results[1])	{
+            var adress =	results[1].formatted_address;
+            callback(null,	adress);
+        }	else	{
+            callback(new Error("Can't find address"));
+        }
+    });
+}
+
+function geocodeAddress(address, callback)	{
+    var geocoder	=	new	google.maps.Geocoder();
+    geocoder.geocode({'address':	address},	function(results,	status)	{
+        if	(status	===	google.maps.GeocoderStatus.OK && results[0])	{
+            var coordinates	=	results[0].geometry.location;
+            callback(null,	coordinates);
+        }	else	{
+            callback(new Error("Can	not	find the address"));
+        }
+    });
+}
+
+function calculateRoute(A_latlng,	 B_latlng,	callback) {
+    var directionService =	new	google.maps.DirectionsService();
+    directionService.route({
+        origin:	A_latlng,
+        destination:	B_latlng,
+        travelMode:	google.maps.TravelMode["DRIVING"]
+    }, function(response,	status)	{
+        if	(status	==	google.maps.DirectionsStatus.OK) {
+            var leg	=	response.routes[0].legs[0];
+            callback(null,	{
+                route: response,
+                duration:	leg.duration.text
+            });
+        }	else	{
+            callback(new	Error("Can't find direction"));
+        }
+    });
+}
+
+exports.geocodeLatLng=geocodeLatLng;
+exports.geocodeAddress=geocodeAddress;
+exports.calculateRoute=calculateRoute;
+exports.map=map;
+exports.point=point;
+exports.directionsDisplay=directionsDisplay;
+exports.newMarker=newMarker;
+},{}],4:[function(require,module,exports){
 /**
  * Created by chaika on 25.01.16.
  */
-
+var $clientAddress=$("#inputAdress");
 $(function(){
     //This code will execute when the page is ready
 
@@ -206,8 +317,70 @@ $(function(){
     PizzaMenu.initialiseMenu();
 
 
+    var GoogleMap=require('./googleMaps');
+    var map=GoogleMap.map;
+    var point=GoogleMap.point;
+    var directionsDisplay=GoogleMap.directionsDisplay;
+    var newMarker=GoogleMap.newMarker;
+    var Pay=require('./payment');
+
+    $clientAddress.bind("keydown", function(event){
+        window.setTimeout(function() {
+            GoogleMap.geocodeAddress($clientAddress.val(), function(err, data){
+                if(!err){
+                    if(newMarker)newMarker.setMap(null);
+                    newMarker	=	new	google.maps.Marker({
+                        position: data,
+                        map: map,
+                        icon: {
+                            url:"assets/images/home-icon.png",
+                            anchor: new google.maps.Point(30, 30)
+                        }
+                    });
+                    GoogleMap.calculateRoute(point, data, function(err, data2){
+                        directionsDisplay.setDirections(data2.route);
+                        $(".order-summery-time").text(data2.duration);
+                    });
+                    $clientAddress.css("box-shadow", "0 0 3px #006600");
+                    $(".order-summery-adress").text($clientAddress.val());
+                }
+                else {
+                    $(".order-summery-time").text("невідома");
+                    $(".order-summery-adress").text("невідомий");
+                    $clientAddress.css("box-shadow", "0 0 3px #CC0000");
+                }
+            });
+        });
+    });
+
 });
-},{"./Pizza_List":1,"./pizza/PizzaCart":4,"./pizza/PizzaMenu":5}],4:[function(require,module,exports){
+},{"./Pizza_List":1,"./googleMaps":3,"./payment":5,"./pizza/PizzaCart":6,"./pizza/PizzaMenu":7}],5:[function(require,module,exports){
+
+var create = function (data, signature) {
+    var suc;
+    LiqPayCheckout.init({
+        data: data,
+        signature: signature,
+        embedTo: "#liqpay",
+        mode: "popup"
+    }).on("liqpay.callback", function (data) {
+        console.log(data.status);
+        console.log(data);
+        suc=data.result==="success";
+    }).on("liqpay.ready", function (data) {
+//	ready
+    }).on("liqpay.close", function (data) {
+//	close
+        if(suc) {
+            alert("Транзакція успішна!\n    Дякуємо за купівлю!:)");
+            window.location.href = '/';
+            $('#clear-order').click();
+        }
+    });
+};
+
+exports.create=create;
+},{}],6:[function(require,module,exports){
 /**
  * Created by chaika on 02.02.16.
  */
@@ -378,32 +551,34 @@ $(".next-step-button").click(function () {
 
 var val = $("#inputName").val().trim();
     if(val.length<2) {
+        $(".name-group").removeClass(".form-group has-error").addClass(".form-group has-error");
     document.getElementById("help name-help-block").style.display='inline-block';
 
    // $("#inputName").style.borderColor="red";
       //  document.getElementsByClassName("col-sm-2 controle-label nl").style.color='red';
-       // $(".name-group").removeClass(".has-success").addClass(".has-error");
-
     }
 else{
         document.getElementById("help name-help-block").style.display='none';
-       // $(".name-group").removeClass(".has-error").addClass(".has-success");
+       $(".name-group").removeClass(".form-group has-error").addClass(".form-group has-success");
     }
+
         var value = $("#inputNumber").val().trim();
     if (value == "" || (value.charAt(0) != '+' && value.charAt(0) != '0') || (value.charAt(0) == '+' && value.length != 13) || (value.charAt(0) == '0' && value.length != 10)) {
             document.getElementById("help phone-help-block").style.display='inline-block';
-        $(".form-group has-success phone-group").removeClass(".has-success").addClass(".has-error");
+       // $("#nl").background='#ec890e';
+        $(".phone-group").removeClass(".form-group has-success").addClass(".form-group has-error");
         }
 else{ document.getElementById("help phone-help-block").style.display='none';
-        $(".form-group has-success phone-group").removeClass(".has-error").addClass(".has-success");
+        $(".phone-group").removeClass(".form-group has-error").addClass(".form-group has-success");
     }
+
     var value1 = $("#inputAdress").val().trim();
     if (value1 == "") {
         document.getElementById("help adress-help-block").style.display='inline-block';
-        $(".form-group adress-group has-success").removeClass(".has-success").addClass(".has-error");
+        $(".adress-group").removeClass(".form-group has-success").addClass(".form-group has-error");
     }
  else{document.getElementById("help adress-help-block").style.display='none';
-    $(".form-group adress-group has-success").removeClass(".has-error").addClass(".has-success");}
+    $(".adress-group").removeClass(".form-group has-error").addClass(".form-group has-success");}
 
 });
 
@@ -416,8 +591,35 @@ var total=function(){
     return t+" грн";
 }
 
+/*function	initialize()	{
+//Тут починаємо працювати з картою
+    varmapProp =	{
+        center:	new	google.maps.LatLng(50.464379,30.519131),
+        zoom:	11
+    };
+    var html_element =	document.getElementById("googleMap");
+    varmap	=	new	google.maps.Map(html_element,	 mapProp);
+//Карта створена і показана
+}
+//Коли сторінка завантажилась
+google.maps.event.addDomListener(window,	 'load',	initialize);
 
+var point	=	new	google.maps.LatLng(50.464379,30.519131);
+var marker	=	new	google.maps.Marker({
+    position:	point,
+//map	- це змінна карти створена за допомогою new
+   // google.maps.Map(...)
+map:	map,
+    icon:	"assets/images/map-icon.png"
+});
 
+google.maps.event.addListener(map,
+    'click',function(me){
+        var coordinates	=	me.latLng;
+//coordinates	- такий самий об’єкт як створений new
+     //   google.maps.LatLng(...)
+    });
+*/
 exports.removeFromCart = removeFromCart;
 exports.addToCart = addToCart;
 
@@ -425,7 +627,7 @@ exports.getPizzaInCart = getPizzaInCart;
 exports.initialiseCart = initialiseCart;
 
 exports.PizzaSize = PizzaSize;
-},{"../Templates":2}],5:[function(require,module,exports){
+},{"../Templates":2}],7:[function(require,module,exports){
 /**
  * Created by chaika on 02.02.16.
  */
@@ -496,9 +698,9 @@ function initialiseMenu() {
 
 exports.filterPizza = filterPizza;
 exports.initialiseMenu = initialiseMenu;
-},{"../Pizza_List":1,"../Templates":2,"./PizzaCart":4}],6:[function(require,module,exports){
+},{"../Pizza_List":1,"../Templates":2,"./PizzaCart":6}],8:[function(require,module,exports){
 
-},{}],7:[function(require,module,exports){
+},{}],9:[function(require,module,exports){
 /*
  * EJS Embedded JavaScript templates
  * Copyright 2112 Matthew Eernisse (mde@fleegix.org)
@@ -1366,7 +1568,7 @@ if (typeof window != 'undefined') {
   window.ejs = exports;
 }
 
-},{"../package.json":9,"./utils":8,"fs":6,"path":10}],8:[function(require,module,exports){
+},{"../package.json":11,"./utils":10,"fs":8,"path":12}],10:[function(require,module,exports){
 /*
  * EJS Embedded JavaScript templates
  * Copyright 2112 Matthew Eernisse (mde@fleegix.org)
@@ -1532,7 +1734,7 @@ exports.cache = {
   }
 };
 
-},{}],9:[function(require,module,exports){
+},{}],11:[function(require,module,exports){
 module.exports={
   "_args": [
     [
@@ -1616,7 +1818,7 @@ module.exports={
   "version": "2.5.7"
 }
 
-},{}],10:[function(require,module,exports){
+},{}],12:[function(require,module,exports){
 (function (process){
 // Copyright Joyent, Inc. and other Node contributors.
 //
@@ -1844,7 +2046,7 @@ var substr = 'ab'.substr(-1) === 'b'
 ;
 
 }).call(this,require('_process'))
-},{"_process":11}],11:[function(require,module,exports){
+},{"_process":13}],13:[function(require,module,exports){
 // shim for using process in browser
 var process = module.exports = {};
 
@@ -2030,4 +2232,4 @@ process.chdir = function (dir) {
 };
 process.umask = function() { return 0; };
 
-},{}]},{},[3]);
+},{}]},{},[4]);
