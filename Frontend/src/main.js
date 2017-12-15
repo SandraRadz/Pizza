@@ -1,7 +1,11 @@
 /**
  * Created by chaika on 25.01.16.
  */
+
+var $client=$("#inputName");
+var $clientPhone=$("#inputNumber");
 var $clientAddress=$("#inputAdress");
+
 $(function(){
     //This code will execute when the page is ready
 
@@ -21,6 +25,7 @@ $(function(){
     var directionsDisplay=GoogleMap.directionsDisplay;
     var newMarker=GoogleMap.newMarker;
     var Pay=require('./payment');
+    var API=require('./API');
 
     $clientAddress.bind("keydown", function(event){
         window.setTimeout(function() {
@@ -54,7 +59,7 @@ $(function(){
         event.preventDefault();
         var suc=true;
         var name = $client.val();
-        if(name===""){
+        if(name==""){
             $client.css("box-shadow", "0 0 3px #CC0000");
             suc=false;
         }
@@ -81,7 +86,7 @@ $(function(){
                 name: name,
                 phone: phone,
                 address: address,
-                cost: parseFloat($("#sum-number").text().split(" ")[0])*1.00,
+                cost: parseFloat($("#count").text().split(" ")[0])*1.00,
                 pizzas:pizzasLine
             };
             API.createOrder(order_info, function (error, data) {

@@ -43,6 +43,7 @@ $(".pizza-button").click(function(){
     else if(filter=='Мясні')filterPizza('meat');
     else if(filter=='З грибами')filterPizza('mushroom');
     else if(filter=='З морепродуктами')filterPizza('ocean');
+    $(".title-text").text('').append(filter);
 });
 
 
